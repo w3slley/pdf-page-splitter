@@ -2,10 +2,7 @@ import os
 import sys
 from PyPDF2 import PdfFileReader, PdfFileWriter
 
-def split_pdf(pdf_filename):
-    if(len(sys.argv) != 2):
-        return print('Please add the pdf filename as an argument')
-    
+def split_pdf(pdf_filename):    
     file_base_name = pdf_filename.replace('.pdf', '')
     output_folder_path = os.path.join(os.getcwd(), 'output')
     if not os.path.exists(output_folder_path):
@@ -22,5 +19,9 @@ def split_pdf(pdf_filename):
             pdfWriter.write(f)
             f.close()
 
-pdf_filename = sys.argv[1]
-split_pdf(pdf_filename)
+
+if(len(sys.argv) != 2):
+    print('Error: please add the pdf filename as an argument')
+else:
+    pdf_filename = sys.argv[1]
+    split_pdf(pdf_filename)
