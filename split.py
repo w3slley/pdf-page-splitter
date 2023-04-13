@@ -1,21 +1,24 @@
 import os
 import sys
-from PyPDF2 import PdfFileReader, PdfFileWriter
+from PyPDF2 import PdfReader, PdfWriter
+
+output_folder_path = os.path.join(os.getcwd(), 'output')
 
 def split_pdf(pdf_filename):    
     file_base_name = pdf_filename.replace('.pdf', '')
-    output_folder_path = os.path.join(os.getcwd(), 'output')
     if not os.path.exists(output_folder_path):
         os.mkdir(output_folder_path)
         
-        pdf = PdfFileReader(pdf_filename)
+    pdf = PdfReader(pdf_filename)
+    for page_num in range(len(pdf.pages)):
+        pdfWriter = PdfWriter()
+        pdfWriter.add_page(pdf.pages[page_num])
 
-    for page_num in range(pdf.numPages):
-        pdfWriter = PdfFileWriter()
-        pdfWriter.addPage(pdf.getPage(page_num))
-
-        with open(os.path.join(output_folder_path, 
-                           '{0}_Page{1}.pdf'.format(file_base_name, page_num+1)), 'wb') as f:
+        with open(
+            os.path.join(output_folder_path,
+            '{0}_Page{1}.pdf'.format(file_base_name, page_num+1)),
+            'wb'
+        ) as f:
             pdfWriter.write(f)
             f.close()
 
