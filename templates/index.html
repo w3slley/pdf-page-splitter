@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Upload PDF and Create ZIP</title>
+  <title>Pdfsplit - split your PDF files into multiple pages</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
@@ -39,14 +39,14 @@
   </style>
 </head>
 
-<body class="flex items-center justify-center min-h-screen">
+<body class="flex flex-col items-center justify-center min-h-screen">
   <div class="bg-white p-10 rounded-lg shadow-lg text-center max-w-md w-full" hx-ext="response-targets">
-    <h1 class="text-3xl font-bold mb-8 text-gray-900">Select a PDF file</h1>
+    <h1 class="text-xl font-bold mb-8 text-gray-900">Split your PDF file into multiple pages.</h1>
     <form id="form" method="post" enctype="multipart/form-data">
       <input type="file" name="file" accept=".pdf" required
         class="custom-file-input block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none">
       <progress id="progress" class="w-full h-px" value='0' max='100'></progress>
-      <p class="text-sm text-gray-500 mt-4">Split your .pdf file into multiple pages. Please select a file to upload.
+      <p class="text-sm text-gray-500 mt-4">Please select a file to upload.
         Maximum file size is 10MB.</p>
       <button type="submit" id="upload-button"
         class="mt-6 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg shadow-lg transition duration-300 ease-in-out">
@@ -61,8 +61,23 @@
     {% endif %}
   </div>
 
+  <div class="bg-white p-6 mt-6 rounded-lg shadow-lg max-w-2xl w-full text-center">
+    <p class="text-sm text-gray-500">
+      <strong class="font-bold">pdfsplit</strong> is designed with privacy in mind. All uploaded and processed files are
+      automatically deleted and we don't do anything with the content of the PDF (you don't have to trust us, please
+      take a look at the Github repository). The only information we'll eventually track is the number of pages of each
+      PDF and their size for analytics purposes.
+    </p>
+  </div>
+
+  <div class="mt-4">
+    <a target="_blank" href="https://github.com/w3slley/pdfsplit"><img width="40px" src="assets/github-mark.png"></a>
+  </div>
+
+
   <div class="footer">
-    <p>Made by <a class="underline underline-offset-4" href="https://weslleyvieira.me" target="_blank">w3slley</a></p>
+    <p>Made by <a class="underline underline-offset-4" href="https://weslleyvieira.me" target="_blank">w3slley</a>
+    </p>
   </div>
 
   <script>

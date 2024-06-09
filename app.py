@@ -1,7 +1,8 @@
 from flask import Flask, render_template
 from services.upload import upload_file
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/assets')
+
 app.config['MAX_CONTENT_LENGTH'] = 10 * 1024 * 1024  # 10MB
 
 
