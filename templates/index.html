@@ -30,29 +30,49 @@
       outline: none;
       box-shadow: 0 0 0 2px #2563eb;
     }
+
+    .footer {
+      position: absolute;
+      right: 2rem;
+      bottom: 1rem;
+    }
   </style>
-  <script src="https://unpkg.com/htmx.org@1.9.12"></script>
-  <script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
 </head>
 
 <body class="flex items-center justify-center min-h-screen">
-  <div class="bg-white p-10 rounded-lg shadow-lg text-center max-w-md w-full">
-    <h1 class="text-3xl font-bold mb-5 text-gray-900">Select a PDF file</h1>
-    <form id="form" hx-post="/upload" hx-encoding="multipart/form-data" hx-target="#error"
-      _='on htmx:xhr:progress(loaded, total) set #progress.value to (loaded/total)*100'>
+  <div class="bg-white p-10 rounded-lg shadow-lg text-center max-w-md w-full" hx-ext="response-targets">
+    <h1 class="text-3xl font-bold mb-8 text-gray-900">Select a PDF file</h1>
+    <form id="form" method="post" enctype="multipart/form-data">
       <input type="file" name="file" accept=".pdf" required
         class="custom-file-input block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none">
       <progress id="progress" class="w-full h-px" value='0' max='100'></progress>
       <p class="text-sm text-gray-500 mt-4">Split your .pdf file into multiple pages. Please select a file to upload.
         Maximum file size is 10MB.</p>
-      <button type="submit"
+      <button type="submit" id="upload-button"
         class="mt-6 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg shadow-lg transition duration-300 ease-in-out">
         Upload
       </button>
     </form>
-    <div id="error">
+
+    {% if error %}
+    <div id="error" class="mt-4">
+      <p class="text-red-500"><b>Error</b>: {{ error }}</p>
     </div>
+    {% endif %}
   </div>
+
+  <div class="footer">
+    <p>Made by <a class="underline underline-offset-4" href="https://weslleyvieira.me" target="_blank">w3slley</a></p>
+  </div>
+
+  <script>
+    const error = document.querySelector('#error')
+    const uploadButton = document.querySelector('#upload-button')
+    uploadButton.addEventListener('click', (event) => {
+      console.log('click')
+      error.innerHTML = ''
+    })
+  </script>
 </body>
 
 </html>

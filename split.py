@@ -37,7 +37,10 @@ def generate_zip_file(file):
         UPLOAD_FOLDER, unique_uuid)
     os.makedirs(unique_folder_path)
     file.save(os.path.join(unique_folder_path, filename))
+
     pages_num = split_pdf(filename, unique_folder_path)
+    # Save page number and uuid (also date time and size of file)
+
     zip_path = os.path.join(
         unique_folder_path, f"{filename}.zip"
     )
