@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload PDF and Create ZIP</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(to right, #ece9e6, #ffffff);
+    }
+
+    .custom-file-input::file-selector-button {
+      border: 1px solid #d1d5db;
+      padding: 0.5rem 1rem;
+      border-radius: 0.375rem;
+      background-color: #f9fafb;
+      cursor: pointer;
+      transition: background-color 0.2s ease-in-out;
+    }
+
+    .custom-file-input::file-selector-button:hover {
+      background-color: #e5e7eb;
+    }
+
+    .custom-file-input::file-selector-button:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px #2563eb;
+    }
+  </style>
+  <script src="https://unpkg.com/htmx.org@1.9.12"></script>
+  <script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
+</head>
+
+<body class="flex items-center justify-center min-h-screen">
+  <div class="bg-white p-10 rounded-lg shadow-lg text-center max-w-md w-full">
+    <h1 class="text-3xl font-bold mb-5 text-gray-900">Select a PDF file</h1>
+    <form id="form" hx-post="/upload" hx-encoding="multipart/form-data" hx-target="#error"
+      _='on htmx:xhr:progress(loaded, total) set #progress.value to (loaded/total)*100'>
+      <input type="file" name="file" accept=".pdf" required
+        class="custom-file-input block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none">
+      <progress id="progress" class="w-full h-px" value='0' max='100'></progress>
+      <p class="text-sm text-gray-500 mt-4">Split your .pdf file into multiple pages. Please select a file to upload.
+        Maximum file size is 10MB.</p>
+      <button type="submit"
+        class="mt-6 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg shadow-lg transition duration-300 ease-in-out">
+        Upload
+      </button>
+    </form>
+    <div id="error">
+    </div>
+  </div>
+</body>
+
+</html>
